@@ -67,7 +67,7 @@ export const Login = () => {
               error={errors.username}
               touched={touched.username}
               inputClassName="input--login"
-              isEmpty={!!values.username}
+              isEmpty={!values.username}
             />
             <TextInput
               name="password"
@@ -75,7 +75,7 @@ export const Login = () => {
               error={errors.password}
               touched={touched.password}
               inputClassName="input--login"
-              isEmpty={!!values.password}
+              isEmpty={!values.password}
               type="password"
             />
             <Button

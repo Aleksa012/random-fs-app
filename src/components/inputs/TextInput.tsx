@@ -1,5 +1,6 @@
 import { Field, FormikValues } from "formik";
 import classNames from "classnames";
+import { useState } from "react";
 
 interface TextInputProps extends Pick<FormikValues, "error" | "touched"> {
   inputClassName: string;
@@ -18,6 +19,8 @@ export const TextInput = ({
   isEmpty,
   type,
 }: TextInputProps) => {
+  const [showHidden, setShowHidden] = useState(false);
+
   const classExtension = inputClassName.slice(inputClassName.indexOf("-"));
 
   const inputClass = classNames("input", inputClassName);
@@ -26,8 +29,8 @@ export const TextInput = ({
     "input__placeholder",
     `input__placeholder${classExtension}`,
     {
-      "input__placeholder--moved": isEmpty,
-      [`input__placeholder--moved${classExtension}`]: isEmpty,
+      "input__placeholder--moved": !isEmpty,
+      [`input__placeholder--moved${classExtension}`]: !isEmpty,
     }
   );
 
@@ -41,10 +44,36 @@ export const TextInput = ({
     `input__error${classExtension}`
   );
 
+  const show = () => {
+    setShowHidden(true);
+  };
+
+  const hide = () => {
+    setShowHidden(false);
+  };
+
   return (
     <div className={wrapperClass}>
       <span className={placeholderClass}>{placeholder}</span>
-      <Field type={type || "text"} className={inputClass} name={name} />
+      {type === "password" && !isEmpty && (
+        <img
+          onMouseEnter={show}
+          onMouseLeave={hide}
+          className="icon icon--show-password"
+          src="/src/assets/icons/eye.png"
+          alt=""
+        />
+      )}
+      {!showHidden ? (
+        <Field
+          maxLength="16"
+          type={type || "text"}
+          className={inputClass}
+          name={name}
+        />
+      ) : (
+        <Field maxLength="16" type="text" className={inputClass} name={name} />
+      )}
       {error && touched && <span className={errorClass}>{error}</span>}
     </div>
   );
