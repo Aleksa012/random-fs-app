@@ -1,0 +1,36 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: 62.5%;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+li {
+  list-style: none;
+}
+
+::-webkit-scrollbar {
+  background: black;
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: gray;
+  border-radius: 100px;
+
+  &:hover {
+    background-color: darken(gray, 8);
+  }
+}

@@ -1,0 +1,22 @@
+.btn {
+  &--base {
+    @include baseBtn($color-neutral--darker, $color-neutral);
+  }
+
+  &[disabled] {
+    @include baseBtn($color-disabled--darker, $color-disabled);
+  }
+
+  &--login {
+    @include baseBtn($color-primary, $color-black);
+    width: 30rem;
+    height: 6rem;
+    box-shadow: none;
+    border-radius: 0;
+    margin-top: 6rem;
+
+    @media screen and (max-width: 500px) {
+      width: 100%;
+    }
+  }
+}

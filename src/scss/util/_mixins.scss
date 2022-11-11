@@ -1,0 +1,66 @@
+@mixin flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin grid($col, $gap) {
+  display: grid;
+  grid-template-columns: repeat($col, 1fr);
+  gap: $gap;
+}
+
+@mixin baseTitle {
+  font-size: 4rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+@mixin baseInput($col) {
+  width: 100%;
+  border: 2px solid $col;
+  color: $col;
+  outline: none;
+  font-size: 2.5rem;
+  padding-left: 1rem;
+  background-color: transparent;
+}
+
+@mixin basePlaceholder {
+  font-size: 2rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  font-family: "Roboto", sans-serif;
+  color: $color-disabled;
+  transition: all 0.5s ease;
+  pointer-events: none;
+}
+
+@mixin baseBtn($textCol, $backCol) {
+  @include flexCenter();
+  padding: 0.5rem 2rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: $textCol;
+  background-color: $backCol;
+  box-shadow: 0 0 0.5rem lighten($backCol, 0.8);
+  border: 1px solid darken($backCol, 1.2);
+  border-radius: 0.4rem;
+  transition: all 0.3s;
+  cursor: pointer;
+
+  &:hover {
+    color: lighten($textCol, 2);
+    background-color: lighten($backCol, 2);
+  }
+}
+
+@mixin error {
+  font-size: 1.6rem;
+  font-weight: bold;
+  position: absolute;
+  color: $color-error;
+  pointer-events: none;
+}

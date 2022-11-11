@@ -1,0 +1,73 @@
+.login {
+  @include flexCenter();
+  width: 80rem;
+  height: 80%;
+  min-height: 68rem;
+  background-color: lighten($color-primary, 0.8);
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 6rem 4rem;
+  box-shadow: 1rem 1rem 0.5rem $color-white;
+  position: relative;
+  z-index: 1;
+
+  @media screen and (max-width: 1280px) {
+    width: 70rem;
+    max-width: 100%;
+  }
+
+  @media screen and (max-width: 500px) {
+    padding: 2rem;
+  }
+
+  &__title {
+    @include baseTitle;
+    margin-bottom: 5rem;
+    text-decoration: underline;
+    cursor: pointer;
+
+    @media screen and (max-width: 500px) {
+      margin: 0 auto;
+      margin-bottom: 3rem;
+    }
+  }
+
+  &__description {
+    font-size: 2rem;
+    font-weight: bold;
+    width: 40rem;
+    margin-bottom: 5rem;
+
+    @media screen and (max-width: 780px) {
+      font-size: 1.4rem;
+      max-width: 100%;
+    }
+
+    @media screen and (max-width: 500px) {
+      text-align: center;
+    }
+  }
+
+  &__link {
+    color: $color-link;
+
+    &:hover {
+      color: darken($color-link, 10);
+    }
+  }
+
+  &__img {
+    width: 100%;
+    opacity: 0.4;
+    position: absolute;
+    bottom: 0;
+    z-index: -1;
+    left: 0;
+    height: 22rem;
+
+    @media screen and (max-width: 500px) {
+      height: 15rem;
+    }
+  }
+}
