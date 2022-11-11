@@ -79,9 +79,9 @@ export const Login = () => {
             <h2 className="login__title">Login</h2>
             <p className="login__description">
               {`Enter you'r account details to login. If you don't have one ,
-              create it here `}
+              create it `}
               <span className="login__link" onClick={navigateToRegister}>
-                register
+                here
               </span>
               {` or use test account `}
               <span
