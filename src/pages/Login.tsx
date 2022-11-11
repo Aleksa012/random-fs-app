@@ -1,7 +1,7 @@
 import { Background } from "../components/backgrounds/Background";
 import * as zod from "zod";
 import { toFormikValidationSchema } from "zod-formik-adapter";
-import { Formik, Field, Form } from "formik";
+import { Formik, Form } from "formik";
 import { Button } from "../components/buttons/Button";
 import { TextInput } from "../components/inputs/TextInput";
 import desertImage from "../assets/desert.webp";
