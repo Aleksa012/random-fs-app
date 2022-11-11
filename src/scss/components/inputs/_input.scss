@@ -31,15 +31,6 @@
     }
   }
 
-  &--register {
-    width: 60%;
-    margin: 1.5rem 0;
-
-    @media screen and (max-width: 500px) {
-      width: 100%;
-    }
-  }
-
   &__placeholder {
     @include basePlaceholder;
     position: absolute;
@@ -114,5 +105,10 @@
     border-bottom: 2px solid $color-black;
     justify-content: center;
     padding-bottom: -2rem;
+    margin: 1.5rem 0;
+
+    @media screen and (max-width: 500px) {
+      width: 100%;
+    }
   }
 }
