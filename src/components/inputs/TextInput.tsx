@@ -1,6 +1,7 @@
 import { Field, FormikValues } from "formik";
 import classNames from "classnames";
 import { useState } from "react";
+import eyeIcon from "../../assets/icons/eye.png";
 
 interface TextInputProps extends Pick<FormikValues, "error" | "touched"> {
   inputClassName: string;
@@ -60,7 +61,7 @@ export const TextInput = ({
           onMouseEnter={show}
           onMouseLeave={hide}
           className="icon icon--show-password"
-          src="/src/assets/icons/eye.png"
+          src={eyeIcon}
           alt=""
         />
       )}
