@@ -57,6 +57,14 @@
   }
 }
 
+@mixin btnMotion($by) {
+  transition: all 0.3s;
+
+  &:active {
+    transform: translateY($by + px);
+  }
+}
+
 @mixin error {
   font-size: 1.6rem;
   font-weight: bold;

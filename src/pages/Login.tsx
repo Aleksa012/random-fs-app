@@ -4,7 +4,7 @@ import { toFormikValidationSchema } from "zod-formik-adapter";
 import { Formik, Form } from "formik";
 import { Button } from "../components/buttons/Button";
 import { TextInput } from "../components/inputs/TextInput";
-import desertImage from "../assets/desert.webp";
+import { login } from "./../api/users/usersAPI";
 
 interface InitialValues {
   username: string;
@@ -22,10 +22,20 @@ export const Login = () => {
     password: "",
   };
 
-  const handleSubmit = (
-    values: InitialValues,
+  const handleSubmit = async (
+    credentials: InitialValues,
     setSubbmiting: (param: boolean) => void
-  ) => {};
+  ) => {
+    await login(credentials)
+      .then((token) => {
+        localStorage.setItem("auth", token);
+      })
+      .catch(() => {
+        //handled in interceptor
+      });
+
+    setSubbmiting(false);
+  };
 
   return (
     <Background>
@@ -66,6 +76,7 @@ export const Login = () => {
               touched={touched.password}
               inputClassName="input--login"
               isEmpty={!!values.password}
+              type="password"
             />
             <Button
               className="btn--login"
@@ -74,7 +85,6 @@ export const Login = () => {
             >
               Login
             </Button>
-            <img className="login__img" src={desertImage} alt="desert image" />
           </Form>
         )}
       </Formik>

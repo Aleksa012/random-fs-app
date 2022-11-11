@@ -6,6 +6,7 @@ interface TextInputProps extends Pick<FormikValues, "error" | "touched"> {
   placeholder: string;
   name: string;
   isEmpty: boolean;
+  type?: string;
 }
 
 export const TextInput = ({
@@ -15,6 +16,7 @@ export const TextInput = ({
   placeholder,
   name,
   isEmpty,
+  type,
 }: TextInputProps) => {
   const classExtension = inputClassName.slice(inputClassName.indexOf("-"));
 
@@ -42,7 +44,7 @@ export const TextInput = ({
   return (
     <div className={wrapperClass}>
       <span className={placeholderClass}>{placeholder}</span>
-      <Field className={inputClass} name={name} />
+      <Field type={type || "text"} className={inputClass} name={name} />
       {error && touched && <span className={errorClass}>{error}</span>}
     </div>
   );
