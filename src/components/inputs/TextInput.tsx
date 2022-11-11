@@ -66,14 +66,9 @@ export const TextInput = ({
         />
       )}
       {!showHidden ? (
-        <Field
-          maxLength="16"
-          type={type || "text"}
-          className={inputClass}
-          name={name}
-        />
+        <Field type={type || "text"} className={inputClass} name={name} />
       ) : (
-        <Field maxLength="16" type="text" className={inputClass} name={name} />
+        <Field type="text" className={inputClass} name={name} />
       )}
       {error && touched && <span className={errorClass}>{error}</span>}
     </div>

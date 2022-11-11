@@ -3,6 +3,7 @@
 @import "variables/colors";
 
 @import "util/mixins";
+@import "util/util";
 
 @import "components/backgrounds/background";
 @import "components/buttons/button";
@@ -10,3 +11,4 @@
 @import "components/icons/icons";
 
 @import "pages/login";
+@import "pages/register";

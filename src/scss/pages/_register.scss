@@ -1,0 +1,44 @@
+.register {
+  display: flex;
+  width: 80rem;
+  height: 80%;
+  min-height: 68rem;
+  background-color: lighten($color-primary, 0.8);
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 6rem 4rem;
+  box-shadow: 1rem 1rem 0.5rem $color-white;
+  position: relative;
+  z-index: 1;
+  animation: fadeIn 1s;
+
+  &__title {
+    @include baseTitle;
+    text-decoration: underline;
+    margin-bottom: 4rem;
+
+    @media screen and (max-width: 650px) {
+      margin: 0 auto;
+    }
+  }
+
+  .wrapper {
+    width: 60%;
+
+    @media screen and (max-width: 650px) {
+      width: 100%;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0.5;
+    transform: scale(0.7);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

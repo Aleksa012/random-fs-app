@@ -5,6 +5,8 @@ import { Formik, Form } from "formik";
 import { Button } from "../components/buttons/Button";
 import { TextInput } from "../components/inputs/TextInput";
 import { login } from "./../api/users/usersAPI";
+import { setAuthToken } from "./../api/local-storage/localStorage";
+import { useNavigate } from "react-router-dom";
 
 interface InitialValues {
   username: string;
@@ -17,6 +19,8 @@ const validationSchema = zod.object({
 });
 
 export const Login = () => {
+  const navigate = useNavigate();
+
   const loginInitialValues = {
     username: "",
     password: "",
@@ -28,13 +32,37 @@ export const Login = () => {
   ) => {
     await login(credentials)
       .then((token) => {
-        localStorage.setItem("auth", token);
+        setAuthToken(token);
+        navigate("/");
       })
       .catch(() => {
-        //handled in interceptor
+        //handled with interceptor
       });
 
     setSubbmiting(false);
+  };
+
+  const handleTestLogin = async () => {
+    const testCredentials: {
+      username: string;
+      password: string;
+    } = {
+      username: import.meta.env.VITE_TEST_USERNAME,
+      password: import.meta.env.VITE_TEST_PASS,
+    };
+
+    await login(testCredentials)
+      .then((token) => {
+        setAuthToken(token);
+        navigate("/");
+      })
+      .catch(() => {
+        //handled with interceptor
+      });
+  };
+
+  const navigateToRegister = () => {
+    navigate("/register");
   };
 
   return (
@@ -52,13 +80,14 @@ export const Login = () => {
             <p className="login__description">
               {`Enter you'r account details to login. If you don't have one ,
               create it here `}
-              <a className="login__link" href="/register">
+              <span className="login__link" onClick={navigateToRegister}>
                 register
-              </a>
+              </span>
               {` or use test account `}
-              <a className="login__link" href="#">
-                {` here`}
-              </a>
+              <span
+                className="login__link"
+                onClick={handleTestLogin}
+              >{` here`}</span>
               {"."}
             </p>
             <TextInput

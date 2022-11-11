@@ -53,6 +53,7 @@
 
   &__link {
     color: $color-link;
+    cursor: pointer;
 
     &:hover {
       color: darken($color-link, 10);
