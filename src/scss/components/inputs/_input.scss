@@ -36,14 +36,28 @@
     @include basePlaceholder;
     position: absolute;
 
+    @media screen and (max-width: 500px) {
+      font-size: 1.2rem;
+    }
+
     &--login {
       top: 1.2rem;
       left: 1rem;
+
+      @media screen and (max-width: 500px) {
+        top: 2.4rem;
+        left: 1.4rem;
+      }
     }
 
     &--register {
       top: 2rem;
       left: 1.2rem;
+
+      @media screen and (max-width: 500px) {
+        top: 3rem;
+        left: 1.2rem;
+      }
     }
 
     &--moved {

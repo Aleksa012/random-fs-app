@@ -1,8 +1,8 @@
 .login {
   @include flexCenter();
   width: 80rem;
-  height: 80%;
-  min-height: 68rem;
+  height: 70%;
+  min-height: 62rem;
   background-color: lighten($color-primary, 0.8);
   flex-direction: column;
   align-items: flex-start;

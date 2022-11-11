@@ -5,6 +5,7 @@ import { Login } from "./pages/Login";
 import { UnauthorizedRoute } from "./routes/UnauthorizedRoute";
 import { AuthorizedRoute } from "./routes/AuthorizedRoute";
 import { Register } from "./pages/Register";
+import { Home } from "./pages/Home";
 
 function App() {
   return (
@@ -30,7 +31,7 @@ function App() {
           path="/"
           element={
             <AuthorizedRoute>
-              <div>Home</div>
+              <Home />
             </AuthorizedRoute>
           }
         />
