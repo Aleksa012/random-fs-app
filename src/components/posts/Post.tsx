@@ -1,10 +1,13 @@
-import { likePost, PostResponse } from "./../api/posts/postsAPI";
+import { likePost, PostResponse } from "../../api/posts/postsAPI";
 import classNames from "classnames";
 
-import likeIcon from "../assets/icons/heart.png";
-import { getUser } from "../api/local-storage/localStorage";
+import likeIcon from "../../assets/icons/heart.png";
+import moreIcon from "../../assets/icons/more.png";
+
+import { getUser } from "../../api/local-storage/localStorage";
 import { useState } from "react";
-import { timeAgo } from "./../util/dates";
+import { timeAgo } from "../../util/dates";
+import { PostActions } from "./PostActions";
 
 const user = getUser();
 
@@ -21,6 +24,11 @@ export const Post = ({
     isLiked: user && likes.includes(user.id),
     popular: popular,
   });
+  const [showActions, setShowActions] = useState(false);
+
+  const showActionsHandler = () => {
+    setShowActions((prev) => !prev);
+  };
 
   const likePostHandler = async () => {
     try {
@@ -28,13 +36,7 @@ export const Post = ({
         return {
           total: prev.isLiked ? prev.total - 1 : prev.total + 1,
           isLiked: !prev.isLiked,
-          popular: prev.isLiked
-            ? prev.total < 5
-              ? true
-              : false
-            : prev.total > 4
-            ? false
-            : true,
+          popular: prev.popular,
         };
       });
       await likePost(id);
@@ -47,7 +49,7 @@ export const Post = ({
     "post--popular": likedState.popular,
   });
 
-  const authorText =
+  const authorFormated =
     author !== "author deleted"
       ? `${author.firstName} ${author.lastName}`
       : author;
@@ -58,10 +60,21 @@ export const Post = ({
 
   return (
     <div className={postClass}>
-      <span className="post__creation-date">{timeAgo(createdAt)}</span>
+      {showActions && <PostActions />}
+      <div className="wrapper wrapper--between">
+        <span className="post__creation-date">{timeAgo(createdAt)}</span>
+        {author !== "author deleted" && author.username === user?.username && (
+          <img
+            onClick={showActionsHandler}
+            className="icon icon--menu"
+            src={moreIcon}
+            alt="more"
+          />
+        )}
+      </div>
       <p className="post__content">{content}</p>
       <div className="post__footer wrapper wrapper--between">
-        <span className="post__author">{authorText}</span>
+        <span className="post__author">{`Posted by - ${authorFormated}`}</span>
         <div className="post__likes">
           <span className="post__like-count">{likedState.total}</span>
           <img

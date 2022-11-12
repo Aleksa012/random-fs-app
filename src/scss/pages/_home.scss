@@ -1,0 +1,15 @@
+.home {
+  &__main {
+    @include grid(1, 2rem);
+    width: 80%;
+    transition: all 0.5s ease;
+
+    &--two {
+      @include grid(2, 2rem);
+    }
+
+    &--three {
+      @include grid(3, 2rem);
+    }
+  }
+}

@@ -18,13 +18,13 @@ export const timeAgo = (inputDate: string) => {
 
   const hoursAgo = Math.floor(timeBetween / 1000 / 60 / 60);
 
-  const minutesAgo =
-    Math.floor(timeBetween / 1000 / 60) < 1
-      ? 1
-      : Math.floor(timeBetween / 1000 / 60);
+  const minutesAgo = Math.floor(timeBetween / 1000 / 60);
 
   if (daysAgo < 1) {
     if (hoursAgo < 1) {
+      if (minutesAgo < 1) {
+        return "now";
+      }
       return `${minutesAgo}m ago`;
     }
     return `${hoursAgo}h ago`;

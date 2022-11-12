@@ -1,14 +1,16 @@
 .post {
   background-color: $color-white;
   border-radius: 4px;
-  height: 20rem;
+  min-height: 20rem;
   margin: 1rem 0;
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 0 0.8rem $color-white;
+  position: relative;
 
   &--popular {
-    background-color: pink;
+    box-shadow: 0 0 0.8rem $color-gold;
   }
 
   &__creation-date {
@@ -21,6 +23,8 @@
   &__content {
     font-size: 2rem;
     font-family: "Roboto", "sans-serif";
+    padding-right: 4rem;
+    white-space: word-break;
   }
 
   &__footer {
@@ -29,7 +33,9 @@
 
   &__author {
     font-size: 1.6rem;
+    font-weight: 500;
     color: $color-black;
+    margin-top: 0.8rem;
   }
 
   &__likes {
@@ -42,5 +48,38 @@
     font-size: 2rem;
     display: block;
     font-weight: bold;
+  }
+
+  &__actions {
+    width: 20rem;
+    padding: 1rem;
+    border-radius: 6px;
+    box-shadow: 0 0 1rem $color-box-shadow;
+    border: 2px solid $color-black;
+    background-color: $color-white;
+    position: absolute;
+    right: 1rem;
+    top: 4.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    .wrapper {
+      align-items: center;
+
+      &:last-child {
+        color: $color-danger;
+        .icon {
+          filter: invert(17%) sepia(39%) saturate(5847%) hue-rotate(348deg)
+            brightness(91%) contrast(96%);
+        }
+      }
+    }
+  }
+
+  &__action {
+    font-size: 1.8rem;
+    font-weight: 500;
+    cursor: pointer;
   }
 }

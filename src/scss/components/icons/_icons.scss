@@ -1,11 +1,8 @@
 .icon {
   width: 3rem;
-  position: absolute;
+  cursor: pointer;
 
   &--like {
-    position: relative;
-    cursor: pointer;
-
     &-active {
       filter: invert(9%) sepia(95%) saturate(7500%) hue-rotate(1deg)
         brightness(102%) contrast(105%);
@@ -13,9 +10,9 @@
   }
 
   &--show-password {
+    position: absolute;
     right: -4rem;
     top: 1.5rem;
-    cursor: pointer;
 
     @media screen and (max-width: 650px) {
       display: none;
@@ -23,6 +20,22 @@
 
     &:hover {
       filter: brightness(0) invert(0.5);
+    }
+  }
+
+  &--layout {
+    filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(298deg)
+      brightness(102%) contrast(102%);
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &:hover {
+      filter: invert(84%) sepia(85%) saturate(479%) hue-rotate(359deg)
+        brightness(75%) contrast(91%);
+    }
+
+    &:active {
+      transform: translateY(3px);
     }
   }
 }

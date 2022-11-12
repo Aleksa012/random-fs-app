@@ -6,6 +6,11 @@ interface Details<T> {
   posts: T;
 }
 
+export interface SendPostData {
+  content: string;
+  img?: string;
+}
+
 export interface PostResponse {
   author: UserResponse | "author deleted";
   content: string;
@@ -23,5 +28,10 @@ export const getAllPosts = async (): Promise<Details<PostResponse[]>> => {
 
 export const likePost = async (id: string) => {
   const { data } = await authInstance.post(`/posts/like/${id}`);
+  return data;
+};
+
+export const createPost = async (postData: SendPostData) => {
+  const { data } = await authInstance.post(`/posts`, postData);
   return data;
 };
