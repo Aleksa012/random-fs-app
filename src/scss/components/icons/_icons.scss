@@ -2,6 +2,16 @@
   width: 3rem;
   position: absolute;
 
+  &--like {
+    position: relative;
+    cursor: pointer;
+
+    &-active {
+      filter: invert(9%) sepia(95%) saturate(7500%) hue-rotate(1deg)
+        brightness(102%) contrast(105%);
+    }
+  }
+
   &--show-password {
     right: -4rem;
     top: 1.5rem;

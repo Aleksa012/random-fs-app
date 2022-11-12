@@ -9,10 +9,16 @@ import { useNavigate } from "react-router-dom";
 
 const validationSchema = zod
   .object({
-    username: zod.string().min(1).max(12),
-    firstName: zod.string().min(1).max(10),
-    lastName: zod.string().min(1).max(10),
-    password: zod.string().min(8, "Must be at least 8 characters long").max(12),
+    username: zod.string().min(1).max(12, "Can't be longer than 12 characters"),
+    firstName: zod
+      .string()
+      .min(1)
+      .max(10, "Can't be longer than 10 characters"),
+    lastName: zod.string().min(1).max(10, "Can't be longer than 10 characters"),
+    password: zod
+      .string()
+      .min(8, "Must be at least 8 characters long")
+      .max(12, "Can't be longer than 12 characters"),
     confirmPassword: zod.string().min(1),
     email: zod.string().email(),
   })

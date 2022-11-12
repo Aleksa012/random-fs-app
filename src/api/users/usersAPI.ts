@@ -1,8 +1,17 @@
-import { baseInstance } from "../instance";
+import { authInstance, baseInstance } from "../instance";
 
 interface UserCredentials {
   username: string;
   password: string;
+}
+
+export interface UserResponse {
+  id: string;
+  firstName: string;
+  lastName: string;
+  username: string;
+  email: string;
+  createdAt: string;
 }
 
 export interface RegisterData {
@@ -20,5 +29,10 @@ export const login = async (credentials: UserCredentials): Promise<string> => {
 
 export const register = async (regInfo: RegisterData) => {
   const { data } = await baseInstance.post("/users", regInfo);
+  return data;
+};
+
+export const getSelf = async (): Promise<UserResponse> => {
+  const { data } = await authInstance.get("/users/auth/self");
   return data;
 };

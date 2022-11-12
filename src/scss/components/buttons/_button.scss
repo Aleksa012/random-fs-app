@@ -1,6 +1,6 @@
 .btn {
   &--base {
-    @include baseBtn($color-neutral--darker, $color-neutral);
+    @include baseBtn($color-black, $color-neutral);
   }
 
   &[disabled] {

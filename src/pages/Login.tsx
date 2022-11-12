@@ -4,40 +4,42 @@ import { toFormikValidationSchema } from "zod-formik-adapter";
 import { Formik, Form } from "formik";
 import { Button } from "../components/buttons/Button";
 import { TextInput } from "../components/inputs/TextInput";
-import { login } from "./../api/users/usersAPI";
-import { setAuthToken } from "./../api/local-storage/localStorage";
+import { getSelf, login } from "./../api/users/usersAPI";
+import { setAuthToken, setUser } from "./../api/local-storage/localStorage";
 import { useNavigate } from "react-router-dom";
-
-interface InitialValues {
-  username: string;
-  password: string;
-}
 
 const validationSchema = zod.object({
   username: zod.string().min(1),
   password: zod.string().min(1),
 });
 
+type CredentialsType = zod.infer<typeof validationSchema>;
+
 export const Login = () => {
   const navigate = useNavigate();
 
-  const loginInitialValues = {
+  const loginInitialValues: CredentialsType = {
     username: "",
     password: "",
   };
 
+  const afterLogin = async (token: string) => {
+    setAuthToken(token);
+    const user = await getSelf();
+    setUser(user);
+    navigate("/");
+  };
+
   const handleSubmit = async (
-    credentials: InitialValues,
+    credentials: CredentialsType,
     setSubbmiting: (param: boolean) => void
   ) => {
-    await login(credentials)
-      .then((token) => {
-        setAuthToken(token);
-        navigate("/");
-      })
-      .catch(() => {
-        //handled with interceptor
-      });
+    try {
+      const token = await login(credentials);
+      await afterLogin(token);
+    } catch (error) {
+      //handled in interceptor
+    }
 
     setSubbmiting(false);
   };
@@ -51,14 +53,12 @@ export const Login = () => {
       password: import.meta.env.VITE_TEST_PASS,
     };
 
-    await login(testCredentials)
-      .then((token) => {
-        setAuthToken(token);
-        navigate("/");
-      })
-      .catch(() => {
-        //handled with interceptor
-      });
+    try {
+      const token = await login(testCredentials);
+      await afterLogin(token);
+    } catch (error) {
+      //handled in interceptor
+    }
   };
 
   const navigateToRegister = () => {
