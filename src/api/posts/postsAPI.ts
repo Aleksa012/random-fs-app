@@ -32,6 +32,9 @@ export const likePost = async (id: string) => {
 };
 
 export const createPost = async (postData: SendPostData) => {
-  const { data } = await authInstance.post(`/posts`, postData);
+  const { data } = await authInstance.post(`/posts`, {
+    ...postData,
+    createdAt: new Date().toISOString(),
+  });
   return data;
 };

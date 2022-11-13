@@ -1,23 +1,15 @@
 import { useEffect, useState } from "react";
-import { createPost, getAllPosts, PostResponse } from "./../api/posts/postsAPI";
+import { getAllPosts, PostResponse } from "./../api/posts/postsAPI";
 import { Post } from "../components/posts/Post";
 import { Background } from "../components/backgrounds/Background";
-import { Button } from "../components/buttons/Button";
-import { clearLocalStorage } from "../api/local-storage/localStorage";
-import { useNavigate } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
 import classNames from "classnames";
 
 type Layout = "single" | "double" | "triple";
 
 export const Home = () => {
-  const navigate = useNavigate();
   const [posts, setPosts] = useState<PostResponse[]>([]);
   const [layout, setLayout] = useState<Layout>("single");
-  const [newPost, setNewPost] = useState({
-    content: "",
-    img: "",
-  });
 
   useEffect(() => {
     (async () => {
@@ -61,48 +53,19 @@ export const Home = () => {
       <div className="home">
         <div className="wrapper">
           <div className={homeMainClass}>
+            <h1 className="home__title">Feed</h1>
             {posts.map((post) => {
               return <Post key={post.id} {...post} />;
             })}
           </div>
-          <Navbar handleLayoutChange={handleLayoutChange} />
+          <Navbar
+            setNewPosts={(newPosts: PostResponse[]) => {
+              setPosts(newPosts);
+            }}
+            handleLayoutChange={handleLayoutChange}
+          />
         </div>
       </div>
-      <Button
-        onClick={() => {
-          clearLocalStorage();
-          navigate("/login");
-        }}
-      >
-        Logout
-      </Button>
-      <input
-        value={newPost.content}
-        onChange={(e) => {
-          setNewPost((prev) => {
-            return {
-              ...prev,
-              content: e.target.value,
-            };
-          });
-        }}
-        type="text"
-      />
-      <Button
-        onClick={async () => {
-          try {
-            await createPost(newPost);
-            setNewPost({
-              content: "",
-              img: "",
-            });
-            const data = await getAllPosts();
-            setPosts(data.posts.reverse());
-          } catch (error) {}
-        }}
-      >
-        Create Post
-      </Button>
     </Background>
   );
 };

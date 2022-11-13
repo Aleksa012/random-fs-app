@@ -1,22 +1,23 @@
 .home {
   &__main {
     @include grid(1, 2rem);
-    width: 80%;
+    width: 100%;
+    padding-top: 8.5rem;
+    padding-bottom: 2rem;
+
+    @media screen and (max-width: 920px) {
+      padding-right: 2rem;
+    }
 
     @media screen and (max-width: 500px) {
       @include grid(1, 2rem);
-    }
-
-    @media screen and (max-width: 920px) {
-      width: 100%;
+      padding-right: 0;
+      padding-top: 7rem;
     }
 
     &--two {
       @include grid(2, 2rem);
 
-      @media screen and (max-width: 920px) {
-        width: 100%;
-      }
       @media screen and (max-width: 500px) {
         @include grid(1, 2rem);
       }
@@ -32,6 +33,26 @@
       @media screen and (max-width: 500px) {
         @include grid(1, 2rem);
       }
+    }
+  }
+
+  &__title {
+    color: $color-primary;
+    font-size: 4rem;
+    position: fixed;
+    top: 0;
+    z-index: 5;
+    background-color: $color-black;
+    border-bottom: 2px solid $color-white;
+    width: 100%;
+    left: 0;
+    height: 7.4rem;
+    @include flexCenter;
+    justify-content: flex-start;
+    padding-left: 2rem;
+
+    @media screen and (max-width: 920px) {
+      padding-right: 7rem;
     }
   }
 }
