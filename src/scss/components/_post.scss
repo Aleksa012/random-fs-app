@@ -1,7 +1,7 @@
 .post {
   background-color: $color-white;
   border-radius: 4px;
-  min-height: 20rem;
+  height: auto;
   margin: 1rem 0;
   padding: 1.5rem;
   display: flex;
@@ -23,8 +23,9 @@
   &__content {
     font-size: 2rem;
     font-family: "Roboto", "sans-serif";
-    padding-right: 4rem;
+    padding-right: 3rem;
     white-space: word-break;
+    min-height: 15rem;
   }
 
   &__footer {
