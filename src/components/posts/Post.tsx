@@ -9,8 +9,6 @@ import { useState } from "react";
 import { timeAgo } from "../../util/dates";
 import { PostActions } from "./PostActions";
 
-const user = getUser();
-
 export const Post = ({
   author,
   content,
@@ -19,6 +17,8 @@ export const Post = ({
   id,
   popular,
 }: PostResponse) => {
+  const user = getUser();
+
   const [likedState, setLikedState] = useState({
     total: likes.length,
     isLiked: user && likes.includes(user.id),
