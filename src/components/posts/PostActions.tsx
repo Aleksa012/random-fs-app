@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import editIcon from "../../assets/icons/pencil.png";
 import deleteIcon from "../../assets/icons/delete.png";
 

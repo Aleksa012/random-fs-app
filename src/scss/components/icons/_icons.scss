@@ -50,4 +50,21 @@
     filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(298deg)
       brightness(102%) contrast(102%);
   }
+
+  &--settings {
+    transition: all 0.3s ease-in-out;
+    margin: auto 0 1rem auto;
+
+    &-closed:hover {
+      transform: rotate(90deg);
+    }
+
+    &-open {
+      transition: none;
+      position: absolute;
+      top: 2rem;
+      right: 1.5rem;
+      z-index: 80;
+    }
+  }
 }

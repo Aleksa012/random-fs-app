@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getAllPosts, PostResponse } from "./../api/posts/postsAPI";
 import { Post } from "../components/posts/Post";
 import { Background } from "../components/backgrounds/Background";
-import { Navbar } from "../components/Navbar";
+import { Navbar } from "../components/navbar/Navbar";
 import classNames from "classnames";
 
 type Layout = "single" | "double" | "triple";
