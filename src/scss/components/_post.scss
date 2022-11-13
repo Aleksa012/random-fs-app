@@ -51,8 +51,7 @@
   }
 
   &__actions {
-    width: 20rem;
-    padding: 1rem;
+    width: 18rem;
     border-radius: 6px;
     box-shadow: 0 0 1rem $color-box-shadow;
     border: 2px solid $color-black;
@@ -62,16 +61,40 @@
     top: 4.2rem;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1rem;
+    padding: 1rem 0;
 
     .wrapper {
       align-items: center;
+      transition: all 0.3s;
+      padding: 0.2rem 1rem;
+      cursor: pointer;
+
+      &:hover:not(:last-child) {
+        background-color: $color-black;
+        color: $color-white;
+
+        img {
+          filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(298deg)
+            brightness(102%) contrast(102%);
+        }
+      }
 
       &:last-child {
         color: $color-danger;
         .icon {
           filter: invert(17%) sepia(39%) saturate(5847%) hue-rotate(348deg)
             brightness(91%) contrast(96%);
+        }
+
+        &:hover {
+          background-color: $color-danger;
+          color: $color-white;
+
+          img {
+            filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(298deg)
+              brightness(102%) contrast(102%);
+          }
         }
       }
     }
@@ -80,6 +103,5 @@
   &__action {
     font-size: 1.8rem;
     font-weight: 500;
-    cursor: pointer;
   }
 }

@@ -5,10 +5,7 @@ import { Background } from "../components/backgrounds/Background";
 import { Button } from "../components/buttons/Button";
 import { clearLocalStorage } from "../api/local-storage/localStorage";
 import { useNavigate } from "react-router-dom";
-
-import twoGridIcon from "../assets/icons/grid-two.png";
-import threeGridIcon from "../assets/icons/grid-three.png";
-import square from "../assets/icons/square.png";
+import { Navbar } from "../components/Navbar";
 import classNames from "classnames";
 
 type Layout = "single" | "double" | "triple";
@@ -61,33 +58,15 @@ export const Home = () => {
 
   return (
     <Background className="background--home">
-      <div className="wrapper">
-        <img
-          onClick={() => handleLayoutChange("single")}
-          className="icon icon--layout"
-          src={square}
-          alt=""
-        />
-        <img
-          onClick={() => handleLayoutChange("double")}
-          className="icon icon--layout"
-          src={twoGridIcon}
-          alt=""
-        />
-        <img
-          onClick={() => handleLayoutChange("triple")}
-          className="icon icon--layout"
-          src={threeGridIcon}
-          alt=""
-        />
-      </div>
       <div className="home">
-        <div className={homeMainClass}>
-          {posts.map((post) => {
-            return <Post key={post.id} {...post} />;
-          })}
+        <div className="wrapper">
+          <div className={homeMainClass}>
+            {posts.map((post) => {
+              return <Post key={post.id} {...post} />;
+            })}
+          </div>
+          <Navbar handleLayoutChange={handleLayoutChange} />
         </div>
-        <div className="home__nav"></div>
       </div>
       <Button
         onClick={() => {

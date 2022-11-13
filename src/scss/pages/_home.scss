@@ -2,14 +2,36 @@
   &__main {
     @include grid(1, 2rem);
     width: 80%;
-    transition: all 0.5s ease;
+
+    @media screen and (max-width: 500px) {
+      @include grid(1, 2rem);
+    }
+
+    @media screen and (max-width: 920px) {
+      width: 100%;
+    }
 
     &--two {
       @include grid(2, 2rem);
+
+      @media screen and (max-width: 920px) {
+        width: 100%;
+      }
+      @media screen and (max-width: 500px) {
+        @include grid(1, 2rem);
+      }
     }
 
     &--three {
       @include grid(3, 2rem);
+
+      @media screen and (max-width: 1280px) {
+        @include grid(2, 2rem);
+      }
+
+      @media screen and (max-width: 500px) {
+        @include grid(1, 2rem);
+      }
     }
   }
 }

@@ -36,7 +36,9 @@ export const Post = ({
         return {
           total: prev.isLiked ? prev.total - 1 : prev.total + 1,
           isLiked: !prev.isLiked,
-          popular: prev.popular,
+          popular:
+            (prev.isLiked && prev.total === 5 && false) ||
+            (!prev.isLiked && prev.total === 4 && true),
         };
       });
       await likePost(id);

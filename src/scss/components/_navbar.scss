@@ -1,0 +1,76 @@
+.nav {
+  position: sticky;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  background-color: $color-secondary;
+  width: 30rem;
+
+  &__menu {
+    display: none;
+    @media screen and (max-width: 920px) {
+      display: block;
+      background-color: $color-secondary;
+      border-radius: 2rem;
+      position: absolute;
+      left: -4rem;
+      top: 1rem;
+      width: 5rem;
+      height: 5rem;
+      @include flexCenter;
+      justify-content: flex-start;
+      padding-left: 0.7rem;
+
+      &::before {
+        content: "";
+        background-color: $color-secondary;
+        clip-path: polygon(
+          61% 56%,
+          81% 39%,
+          100% 0,
+          100% 100%,
+          0 100%,
+          0 62%,
+          34% 63%
+        );
+        position: absolute;
+        width: 2rem;
+        height: 2rem;
+        top: -1.2rem;
+        right: 1rem;
+      }
+
+      &::after {
+        content: "";
+        background-color: $color-secondary;
+        clip-path: polygon(
+          61% 56%,
+          81% 39%,
+          100% 0,
+          100% 100%,
+          0 100%,
+          0 62%,
+          34% 63%
+        );
+        position: absolute;
+        width: 2rem;
+        height: 2rem;
+        bottom: -1.2rem;
+        right: 1rem;
+        transform: scaleX(-1) rotate(180deg);
+      }
+    }
+  }
+
+  @media screen and (max-width: 920px) {
+    transition: all 0.3s;
+    position: fixed;
+    transform: translateX(100%);
+  }
+
+  &--active {
+    @media screen and (max-width: 920px) {
+      transform: translateX(0%);
+    }
+  }
+}
