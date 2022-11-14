@@ -6,6 +6,7 @@ import { UnauthorizedRoute } from "./routes/UnauthorizedRoute";
 import { AuthorizedRoute } from "./routes/AuthorizedRoute";
 import { Register } from "./pages/Register";
 import { Home } from "./pages/Home";
+import { UserProfile } from "./pages/UserProfile";
 
 function App() {
   return (
@@ -32,6 +33,14 @@ function App() {
           element={
             <AuthorizedRoute>
               <Home />
+            </AuthorizedRoute>
+          }
+        />
+        <Route
+          path="/my-profile"
+          element={
+            <AuthorizedRoute>
+              <UserProfile />
             </AuthorizedRoute>
           }
         />

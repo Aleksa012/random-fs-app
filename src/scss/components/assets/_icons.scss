@@ -56,7 +56,9 @@
     margin: auto 0 1rem auto;
 
     &-closed:hover {
-      transform: rotate(90deg);
+      @media screen and (min-width: 500px) {
+        transform: rotate(90deg);
+      }
     }
 
     &-open {
@@ -65,6 +67,31 @@
       top: 2rem;
       right: 1.5rem;
       z-index: 80;
+      transform: rotate(180deg);
+
+      &:hover {
+        @media screen and (min-width: 650px) {
+          animation: backButton 1s;
+        }
+      }
     }
+  }
+}
+
+@keyframes backButton {
+  0% {
+    transform: translateX(0) rotate(180deg);
+  }
+  25% {
+    transform: translateX(-3px) rotate(180deg);
+  }
+  50% {
+    transform: translateX(0) rotate(180deg);
+  }
+  75% {
+    transform: translateX(-3px) rotate(180deg);
+  }
+  100% {
+    transform: translateX(0) rotate(180deg);
   }
 }

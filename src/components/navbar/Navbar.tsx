@@ -5,29 +5,25 @@ import burgerIcon from "../../assets/icons/burger.png";
 import exitIcon from "../../assets/icons/exit.png";
 import closeIcon from "../../assets/icons/close.png";
 import settingsIcon from "../../assets/icons/setting.png";
+import arrowIcon from "../../assets/icons/arrow.png";
+
 import classNames from "classnames";
 import { useState } from "react";
 import { Button } from "../buttons/Button";
 import { clearLocalStorage } from "../../api/local-storage/localStorage";
-import { useNavigate } from "react-router-dom";
-import { createPost, PostResponse } from "../../api/posts/postsAPI";
-import { getAllPosts } from "../../api/posts/postsAPI";
+import { NavLink, useNavigate } from "react-router-dom";
+import { PostResponse } from "../../api/posts/postsAPI";
 import { NavSettings } from "./NavSettings";
 
 type Layout = "single" | "double" | "triple";
 
 interface NavbarProps {
   handleLayoutChange?: (layout: Layout) => void;
-  setNewPosts: (newPosts: PostResponse[]) => void;
 }
 
-export const Navbar = ({ handleLayoutChange, setNewPosts }: NavbarProps) => {
+export const Navbar = ({ handleLayoutChange }: NavbarProps) => {
   const [showSettings, setShowSettings] = useState(false);
   const [isActive, setIsActive] = useState(false);
-  const [newMockPost, setNewMockPost] = useState({
-    content: "",
-    img: "",
-  });
 
   const navigate = useNavigate();
 
@@ -62,32 +58,6 @@ export const Navbar = ({ handleLayoutChange, setNewPosts }: NavbarProps) => {
           className="icon icon--nav-menu"
         />
       </div>
-      <div style={{ padding: "1rem 0" }} className="mock__post">
-        <input
-          type="text"
-          value={newMockPost.content}
-          onChange={(e) => {
-            setNewMockPost((prev) => {
-              return { ...prev, content: e.target.value };
-            });
-          }}
-        />
-        <Button
-          onClick={async () => {
-            try {
-              await createPost(newMockPost);
-              const data = await getAllPosts();
-              setNewPosts(data.posts.reverse());
-              setNewMockPost({
-                content: "",
-                img: "",
-              });
-            } catch (error) {}
-          }}
-        >
-          Create Mock Post
-        </Button>
-      </div>
       {showSettings && (
         <NavSettings>
           {handleLayoutChange && (
@@ -117,9 +87,29 @@ export const Navbar = ({ handleLayoutChange, setNewPosts }: NavbarProps) => {
           )}
         </NavSettings>
       )}
+      <NavLink
+        className={({ isActive }) =>
+          classNames("nav__link", {
+            "nav__link--active": isActive,
+          })
+        }
+        to="/"
+      >
+        Feed
+      </NavLink>
+      <NavLink
+        className={({ isActive }) =>
+          classNames("nav__link", {
+            "nav__link--active": isActive,
+          })
+        }
+        to="/my-profile"
+      >
+        My Profile
+      </NavLink>
       <img
         onClick={showSettingsHandler}
-        src={showSettings ? closeIcon : settingsIcon}
+        src={showSettings ? arrowIcon : settingsIcon}
         alt="settings"
         className={settingsIconClass}
       />

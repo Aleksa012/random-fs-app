@@ -4,6 +4,7 @@ import { Post } from "../components/posts/Post";
 import { Background } from "../components/backgrounds/Background";
 import { Navbar } from "../components/navbar/Navbar";
 import classNames from "classnames";
+import { Loading } from "./Loading";
 
 type Layout = "single" | "double" | "triple";
 
@@ -41,29 +42,21 @@ export const Home = () => {
     }
   };
 
-  if (posts.length < 1)
-    return (
-      <Background>
-        <div style={{ color: "white", fontSize: "4rem" }}>Loading...</div>;
-      </Background>
-    );
-
   return (
     <Background className="background--home">
       <div className="home">
         <div className="wrapper">
-          <div className={homeMainClass}>
-            <h1 className="home__title">Feed</h1>
-            {posts.map((post) => {
-              return <Post key={post.id} {...post} />;
-            })}
-          </div>
-          <Navbar
-            setNewPosts={(newPosts: PostResponse[]) => {
-              setPosts(newPosts);
-            }}
-            handleLayoutChange={handleLayoutChange}
-          />
+          {posts.length < 1 ? (
+            <Loading />
+          ) : (
+            <div className={homeMainClass}>
+              <h1 className="home__title">Feed</h1>
+              {posts.map((post) => {
+                return <Post key={post.id} {...post} />;
+              })}
+            </div>
+          )}
+          <Navbar handleLayoutChange={handleLayoutChange} />
         </div>
       </div>
     </Background>
