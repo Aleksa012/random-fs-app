@@ -10,6 +10,7 @@
   color: $color-black;
   display: flex;
   flex-direction: column;
+  border-left: 2px solid $color-black;
 
   @media screen and (max-width: 920px) {
     transition: all 0.3s;
@@ -184,6 +185,19 @@
         animation: linkHover 0.5s;
         animation-fill-mode: forwards;
       }
+    }
+  }
+
+  &__backdrop {
+    position: absolute;
+    width: 100vw;
+    z-index: 19;
+    top: 0;
+    left: 0;
+    height: 100vh;
+
+    @media screen and (min-width: 920px) {
+      display: none;
     }
   }
 }

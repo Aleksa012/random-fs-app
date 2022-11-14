@@ -46,16 +46,17 @@ export const Home = () => {
     <Background className="background--home">
       <div className="home">
         <div className="wrapper">
-          {posts.length < 1 ? (
-            <Loading />
-          ) : (
-            <div className={homeMainClass}>
-              <h1 className="home__title">Feed</h1>
-              {posts.map((post) => {
+          <div className={homeMainClass}>
+            <h1 className="home__title">Feed</h1>
+            {posts.length < 1 ? (
+              <Loading />
+            ) : (
+              posts.map((post) => {
                 return <Post key={post.id} {...post} />;
-              })}
-            </div>
-          )}
+              })
+            )}
+          </div>
+
           <Navbar handleLayoutChange={handleLayoutChange} />
         </div>
       </div>

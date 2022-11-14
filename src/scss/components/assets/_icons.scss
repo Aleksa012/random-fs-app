@@ -76,6 +76,12 @@
       }
     }
   }
+
+  &--profile-menu {
+    transform: rotate(180deg);
+    filter: invert(91%) sepia(41%) saturate(774%) hue-rotate(359deg)
+      brightness(104%) contrast(84%);
+  }
 }
 
 @keyframes backButton {

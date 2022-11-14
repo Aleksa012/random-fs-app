@@ -26,6 +26,11 @@ export const getAllPosts = async (): Promise<Details<PostResponse[]>> => {
   return data;
 };
 
+export const getByAuthor = async (): Promise<Details<PostResponse[]>> => {
+  const { data } = await authInstance.get("/posts/author/self");
+  return data;
+};
+
 export const likePost = async (id: string) => {
   const { data } = await authInstance.post(`/posts/like/${id}`);
   return data;

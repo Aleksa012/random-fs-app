@@ -42,87 +42,97 @@ export const Navbar = ({ handleLayoutChange }: NavbarProps) => {
     setShowSettings((prev) => !prev);
   };
 
+  const closeOnBackdrop = () => {
+    setShowSettings(false);
+    activeNavHandler();
+  };
+
   const settingsIconClass = classNames("icon", "icon--settings", {
     "icon--settings-open": showSettings,
     "icon--settings-closed": !showSettings,
   });
 
   return (
-    <div className={navClass}>
-      <h2 className="nav__title">Navigation and settings</h2>
-      <div className="nav__menu">
-        <img
-          onClick={activeNavHandler}
-          src={isActive ? closeIcon : burgerIcon}
-          alt="burger"
-          className="icon icon--nav-menu"
-        />
-      </div>
-      {showSettings && (
-        <NavSettings>
-          {handleLayoutChange && (
-            <div className="nav__layout">
-              <h2 className="nav__layout-title">Choose a layout</h2>
-              <div className="wrapper">
-                <img
-                  onClick={() => handleLayoutChange("single")}
-                  className={layoutIconClass("single")}
-                  src={squareIcon}
-                  alt="square"
-                />
-                <img
-                  onClick={() => handleLayoutChange("double")}
-                  className={layoutIconClass("double")}
-                  src={twoGridIcon}
-                  alt="sqare^2"
-                />
-                <img
-                  onClick={() => handleLayoutChange("triple")}
-                  className={layoutIconClass("triple")}
-                  src={threeGridIcon}
-                  alt="square^3"
-                />
-              </div>
-            </div>
-          )}
-        </NavSettings>
+    <>
+      {isActive && (
+        <div onClick={closeOnBackdrop} className="nav__backdrop"></div>
       )}
-      <NavLink
-        className={({ isActive }) =>
-          classNames("nav__link", {
-            "nav__link--active": isActive,
-          })
-        }
-        to="/"
-      >
-        Feed
-      </NavLink>
-      <NavLink
-        className={({ isActive }) =>
-          classNames("nav__link", {
-            "nav__link--active": isActive,
-          })
-        }
-        to="/my-profile"
-      >
-        My Profile
-      </NavLink>
-      <img
-        onClick={showSettingsHandler}
-        src={showSettings ? arrowIcon : settingsIcon}
-        alt="settings"
-        className={settingsIconClass}
-      />
-      <Button
-        className="btn--logout"
-        onClick={() => {
-          clearLocalStorage();
-          navigate("/login");
-        }}
-      >
-        Logout
-        <img src={exitIcon} alt="exit" className="icon icon--exit" />
-      </Button>
-    </div>
+      <div className={navClass}>
+        <h2 className="nav__title">Navigation and settings</h2>
+        <div className="nav__menu">
+          <img
+            onClick={activeNavHandler}
+            src={isActive ? closeIcon : burgerIcon}
+            alt="burger"
+            className="icon icon--nav-menu"
+          />
+        </div>
+        {showSettings && (
+          <NavSettings>
+            {handleLayoutChange && (
+              <div className="nav__layout">
+                <h2 className="nav__layout-title">Choose a layout</h2>
+                <div className="wrapper">
+                  <img
+                    onClick={() => handleLayoutChange("single")}
+                    className={layoutIconClass("single")}
+                    src={squareIcon}
+                    alt="square"
+                  />
+                  <img
+                    onClick={() => handleLayoutChange("double")}
+                    className={layoutIconClass("double")}
+                    src={twoGridIcon}
+                    alt="sqare^2"
+                  />
+                  <img
+                    onClick={() => handleLayoutChange("triple")}
+                    className={layoutIconClass("triple")}
+                    src={threeGridIcon}
+                    alt="square^3"
+                  />
+                </div>
+              </div>
+            )}
+          </NavSettings>
+        )}
+        <NavLink
+          className={({ isActive }) =>
+            classNames("nav__link", {
+              "nav__link--active": isActive,
+            })
+          }
+          to="/"
+        >
+          Feed
+        </NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            classNames("nav__link", {
+              "nav__link--active": isActive,
+            })
+          }
+          to="/my-profile"
+        >
+          My Profile
+        </NavLink>
+        <img
+          onClick={showSettingsHandler}
+          src={showSettings ? arrowIcon : settingsIcon}
+          alt="settings"
+          className={settingsIconClass}
+        />
+        <Button
+          className="btn--logout"
+          onClick={() => {
+            clearLocalStorage();
+            navigate("/login");
+          }}
+        >
+          Logout
+          <img src={exitIcon} alt="exit" className="icon icon--exit" />
+        </Button>
+      </div>
+    </>
   );
 };
