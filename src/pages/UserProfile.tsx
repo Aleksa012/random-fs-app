@@ -1,7 +1,6 @@
 import { Background } from "../components/backgrounds/Background";
 import { Navbar } from "../components/navbar/Navbar";
 import { useEffect, useState } from "react";
-import { getUser } from "../api/local-storage/localStorage";
 import { getByAuthor, PostResponse } from "../api/posts/postsAPI";
 import { Loading } from "./Loading";
 import { Post } from "../components/posts/Post";
@@ -13,9 +12,6 @@ import closeIcon from "../assets/icons/close.png";
 import classNames from "classnames";
 
 export const UserProfile = () => {
-  const user = getUser();
-  if (!user) return;
-
   const [posts, setPosts] = useState<PostResponse[]>([]);
   const [isActive, setIsActive] = useState(false);
 
