@@ -65,57 +65,51 @@ export const LoginForm = () => {
   };
 
   return (
-    <div>
-      <Formik
-        onSubmit={(values, { setSubmitting }) =>
-          handleSubmit(values, setSubmitting)
-        }
-        initialValues={loginInitialValues}
-        validationSchema={toFormikValidationSchema(validationSchema)}
-      >
-        {({ touched, errors, isSubmitting, values }) => (
-          <Form className="login">
-            <h2 className="login__title">Login</h2>
-            <p className="login__description">
-              {`Enter you'r account details to login. If you don't have one ,
+    <Formik
+      onSubmit={(values, { setSubmitting }) =>
+        handleSubmit(values, setSubmitting)
+      }
+      initialValues={loginInitialValues}
+      validationSchema={toFormikValidationSchema(validationSchema)}
+    >
+      {({ touched, errors, isSubmitting, values }) => (
+        <Form className="login">
+          <h2 className="login__title">Login</h2>
+          <p className="login__description">
+            {`Enter you'r account details to login. If you don't have one ,
         create it `}
-              <span className="login__link" onClick={navigateToRegister}>
-                here
-              </span>
-              {` or use test account `}
-              <span
-                className="login__link"
-                onClick={handleTestLogin}
-              >{` here`}</span>
-              {"."}
-            </p>
-            <TextInput
-              name="username"
-              placeholder="Username"
-              error={errors.username}
-              touched={touched.username}
-              inputClassName="input--login"
-              isEmpty={!values.username}
-            />
-            <TextInput
-              name="password"
-              placeholder="Password"
-              error={errors.password}
-              touched={touched.password}
-              inputClassName="input--login"
-              isEmpty={!values.password}
-              type="password"
-            />
-            <Button
-              className="btn--login"
-              type="submit"
-              disabled={isSubmitting}
-            >
-              Login
-            </Button>
-          </Form>
-        )}
-      </Formik>
-    </div>
+            <span className="login__link" onClick={navigateToRegister}>
+              here
+            </span>
+            {` or use test account `}
+            <span
+              className="login__link"
+              onClick={handleTestLogin}
+            >{` here`}</span>
+            {"."}
+          </p>
+          <TextInput
+            name="username"
+            placeholder="Username"
+            error={errors.username}
+            touched={touched.username}
+            inputClassName="input--login"
+            isEmpty={!values.username}
+          />
+          <TextInput
+            name="password"
+            placeholder="Password"
+            error={errors.password}
+            touched={touched.password}
+            inputClassName="input--login"
+            isEmpty={!values.password}
+            type="password"
+          />
+          <Button className="btn--login" type="submit" disabled={isSubmitting}>
+            Login
+          </Button>
+        </Form>
+      )}
+    </Formik>
   );
 };
