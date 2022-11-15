@@ -1,6 +1,6 @@
 import { Background } from "../components/backgrounds/Background";
 import { Navbar } from "../components/navbar/Navbar";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getByAuthor, PostResponse } from "../api/posts/postsAPI";
 import { Loading } from "./Loading";
 import { Post } from "../components/posts/Post";
@@ -13,16 +13,29 @@ import classNames from "classnames";
 import { useToggle } from "./../hooks/useToggle";
 import { Modal } from "./../components/modal/Modal";
 import { CreatePostForm } from "../components/forms/CreatePostForm";
+import { getSelf, UserResponse } from "./../api/users/usersAPI";
+import { getAllPosts } from "./../api/posts/postsAPI";
 
 export const UserProfile = () => {
   const [posts, setPosts] = useState<PostResponse[]>([]);
+  const [allPosts, setAllPosts] = useState<PostResponse[]>([]);
   const [isActive, setIsActive] = useToggle();
   const [isModalOpen, setIsModalOpen] = useToggle();
+  const [user, setUser] = useState<UserResponse>();
 
   useEffect(() => {
     (async () => {
       const { posts } = await getByAuthor();
       setPosts(posts.reverse());
+      const user = await getSelf();
+      setUser(user);
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      const { posts } = await getAllPosts();
+      setAllPosts(posts);
     })();
   }, []);
 
@@ -30,7 +43,20 @@ export const UserProfile = () => {
     "profile__main--active": isActive,
   });
 
-  const addNewPost = () => {};
+  const totalLiked = useMemo(() => {
+    return (
+      user && allPosts.filter((post) => post.likes.includes(user.id)).length
+    );
+  }, [posts]);
+
+  const totalLikes = useMemo(() => {
+    return posts.reduce((acc, cur) => (acc += cur.likes.length), 0);
+  }, [posts]);
+
+  const popularPosts = posts.reduce(
+    (acc, cur) => (acc += cur.popular ? 1 : 0),
+    0
+  );
 
   return (
     <Background className="background--profile">
@@ -44,14 +70,30 @@ export const UserProfile = () => {
       )}
       <div className="profile">
         <div className={profileMenuClass}>
-          <div className="profile__menu">
-            <img
-              onClick={setIsActive}
-              src={isActive ? closeIcon : userIcon}
-              alt="burger"
-              className="icon icon--profile-menu"
-            />
-          </div>
+          {!user ? (
+            <Loading />
+          ) : (
+            <>
+              <div className="profile__picture">
+                <img src={userIcon} alt="profile picture" className="icon" />
+              </div>
+              <div className="profile__username">{user.username}</div>
+              <div className="profile__details">
+                <span className="profile__detail">{`Total posts: ${posts.length}`}</span>
+                <span className="profile__detail">{`Popular posts: ${popularPosts}`}</span>
+                <span className="profile__detail">{`Total liked: ${totalLiked}`}</span>
+                <span className="profile__detail">{`Total likes: ${totalLikes}`}</span>
+              </div>
+              <div className="profile__menu">
+                <img
+                  onClick={setIsActive}
+                  src={isActive ? closeIcon : userIcon}
+                  alt="burger"
+                  className="icon icon--profile-menu"
+                />
+              </div>
+            </>
+          )}
         </div>
         <div className="profile__posts">
           <h2 className="profile__posts-header">

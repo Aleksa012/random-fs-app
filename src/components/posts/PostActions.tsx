@@ -13,7 +13,6 @@ interface PostActionsProps {
 
 export const PostActions = ({ postId, refreshPosts }: PostActionsProps) => {
   const handlePostDeletion = async () => {
-    refreshPosts([]);
     await deletePost(postId);
     const { posts } = await getByAuthor();
     refreshPosts(posts.reverse());
