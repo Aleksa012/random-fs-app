@@ -43,3 +43,8 @@ export const createPost = async (postData: SendPostData) => {
   });
   return data;
 };
+
+export const deletePost = async (id: string) => {
+  const { data } = await authInstance.delete(`posts/delete/${id}`);
+  return data;
+};

@@ -14,6 +14,7 @@ import { clearLocalStorage } from "../../api/local-storage/localStorage";
 import { NavLink, useNavigate } from "react-router-dom";
 import { PostResponse } from "../../api/posts/postsAPI";
 import { NavSettings } from "./NavSettings";
+import { useToggle } from "./../../hooks/useToggle";
 
 type Layout = "single" | "double" | "triple";
 
@@ -23,7 +24,7 @@ interface NavbarProps {
 
 export const Navbar = ({ handleLayoutChange }: NavbarProps) => {
   const [showSettings, setShowSettings] = useState(false);
-  const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useToggle();
 
   const navigate = useNavigate();
 
@@ -34,17 +35,13 @@ export const Navbar = ({ handleLayoutChange }: NavbarProps) => {
     "nav--active": isActive,
   });
 
-  const activeNavHandler = () => {
-    setIsActive((prev) => !prev);
-  };
-
   const showSettingsHandler = () => {
     setShowSettings((prev) => !prev);
   };
 
   const closeOnBackdrop = () => {
     setShowSettings(false);
-    activeNavHandler();
+    setIsActive();
   };
 
   const settingsIconClass = classNames("icon", "icon--settings", {
@@ -61,7 +58,7 @@ export const Navbar = ({ handleLayoutChange }: NavbarProps) => {
         <h2 className="nav__title">Navigation and settings</h2>
         <div className="nav__menu">
           <img
-            onClick={activeNavHandler}
+            onClick={setIsActive}
             src={isActive ? closeIcon : burgerIcon}
             alt="burger"
             className="icon icon--nav-menu"

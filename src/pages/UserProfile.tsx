@@ -10,15 +10,19 @@ import plusIcon from "../assets/icons/plus.png";
 import userIcon from "../assets/icons/user.png";
 import closeIcon from "../assets/icons/close.png";
 import classNames from "classnames";
+import { useToggle } from "./../hooks/useToggle";
+import { Modal } from "./../components/modal/Modal";
+import { CreatePostForm } from "../components/forms/CreatePostForm";
 
 export const UserProfile = () => {
   const [posts, setPosts] = useState<PostResponse[]>([]);
-  const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useToggle();
+  const [isModalOpen, setIsModalOpen] = useToggle();
 
   useEffect(() => {
     (async () => {
       const { posts } = await getByAuthor();
-      setPosts(posts);
+      setPosts(posts.reverse());
     })();
   }, []);
 
@@ -26,17 +30,23 @@ export const UserProfile = () => {
     "profile__main--active": isActive,
   });
 
-  const activeProfileHandler = () => {
-    setIsActive((prev) => !prev);
-  };
+  const addNewPost = () => {};
 
   return (
     <Background className="background--profile">
+      {isModalOpen && (
+        <Modal title="Create post" closeModal={setIsModalOpen}>
+          <CreatePostForm
+            closeModal={setIsModalOpen}
+            refreshPosts={(posts) => setPosts(posts)}
+          />
+        </Modal>
+      )}
       <div className="profile">
         <div className={profileMenuClass}>
           <div className="profile__menu">
             <img
-              onClick={activeProfileHandler}
+              onClick={setIsActive}
               src={isActive ? closeIcon : userIcon}
               alt="burger"
               className="icon icon--profile-menu"
@@ -45,8 +55,8 @@ export const UserProfile = () => {
         </div>
         <div className="profile__posts">
           <h2 className="profile__posts-header">
-            <h3>My posts</h3>
-            <Button>
+            <span>My posts</span>
+            <Button onClick={setIsModalOpen}>
               <span>Add new one</span>
               <img src={plusIcon} alt="plus" className="icon" />
             </Button>
@@ -56,7 +66,13 @@ export const UserProfile = () => {
               <Loading />
             ) : (
               posts.map((post) => {
-                return <Post key={post.id} {...post} />;
+                return (
+                  <Post
+                    refreshPosts={(posts) => setPosts(posts)}
+                    key={post.id}
+                    {...post}
+                  />
+                );
               })
             )}
           </div>

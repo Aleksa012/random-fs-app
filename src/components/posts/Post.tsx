@@ -9,6 +9,10 @@ import { useState } from "react";
 import { timeAgo } from "../../util/dates";
 import { PostActions } from "./PostActions";
 
+interface PostProps extends PostResponse {
+  refreshPosts: (posts: PostResponse[]) => void;
+}
+
 export const Post = ({
   author,
   content,
@@ -16,7 +20,8 @@ export const Post = ({
   likes,
   id,
   popular,
-}: PostResponse) => {
+  refreshPosts,
+}: PostProps) => {
   const user = getUser();
 
   const [likedState, setLikedState] = useState({
@@ -62,7 +67,7 @@ export const Post = ({
 
   return (
     <div className={postClass}>
-      {showActions && <PostActions />}
+      {showActions && <PostActions refreshPosts={refreshPosts} postId={id} />}
       <div className="wrapper wrapper--between">
         <span className="post__creation-date">{timeAgo(createdAt)}</span>
         {author !== "author deleted" && author.username === user?.username && (

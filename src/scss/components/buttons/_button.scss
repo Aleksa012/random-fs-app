@@ -54,4 +54,23 @@
     font-weight: bold;
     box-shadow: 0 0 1rem $color-box-shadow;
   }
+
+  &--modal {
+    @include baseBtn($color-black, $color-secondary);
+    width: 15rem;
+    height: 4rem;
+    box-shadow: none;
+    font-weight: bold;
+    box-shadow: 0 0 1rem $color-box-shadow;
+    margin-left: auto;
+
+    &[disabled] {
+      background-color: $color-disabled;
+    }
+
+    @media screen and (max-width: 500px) {
+      width: 50%;
+      margin-right: auto;
+    }
+  }
 }

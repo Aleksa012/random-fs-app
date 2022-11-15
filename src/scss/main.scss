@@ -5,12 +5,15 @@
 @import "util/mixins";
 @import "util/util";
 
+@import "assets/icons";
+
 @import "components/backgrounds/background";
 @import "components/buttons/button";
 @import "components/inputs/input";
-@import "components/assets/icons";
 @import "components/post";
 @import "components/navbar";
+@import "components/modal";
+@import "components/forms/create-post";
 
 @import "pages/login";
 @import "pages/register";

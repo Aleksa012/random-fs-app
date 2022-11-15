@@ -52,11 +52,16 @@ export const Home = () => {
               <Loading />
             ) : (
               posts.map((post) => {
-                return <Post key={post.id} {...post} />;
+                return (
+                  <Post
+                    refreshPosts={(posts) => setPosts(posts)}
+                    key={post.id}
+                    {...post}
+                  />
+                );
               })
             )}
           </div>
-
           <Navbar handleLayoutChange={handleLayoutChange} />
         </div>
       </div>
