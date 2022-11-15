@@ -20,6 +20,7 @@
 
   @media screen and (max-width: 500px) {
     padding: 2rem;
+    margin: 1rem 0;
     box-shadow: none;
   }
 
@@ -38,6 +39,36 @@
 
     @media screen and (max-width: 650px) {
       width: 100%;
+    }
+  }
+
+  &__icons {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    right: 7rem;
+    top: 17rem;
+    align-items: center;
+
+    @media screen and (max-width: 650px) {
+      position: relative;
+      right: auto;
+      top: auto;
+      flex-direction: row;
+      width: 100%;
+      justify-content: space-between;
+      padding-top: 4rem;
+      flex-wrap: wrap;
+    }
+
+    &-title {
+      font-size: 2rem;
+      font-weight: bold;
+
+      @media screen and (max-width: 650px) {
+        position: absolute;
+        top: 0;
+      }
     }
   }
 }

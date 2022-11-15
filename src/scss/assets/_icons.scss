@@ -79,8 +79,32 @@
 
   &--profile-menu {
     transform: rotate(180deg);
-    filter: invert(91%) sepia(41%) saturate(774%) hue-rotate(359deg)
-      brightness(104%) contrast(84%);
+
+    &.default {
+      filter: invert(93%) sepia(2%) saturate(1189%) hue-rotate(314deg)
+        brightness(103%) contrast(86%);
+    }
+  }
+
+  &--register {
+    width: 8rem;
+    border-radius: 100px;
+    padding: 1rem;
+    margin: 0.5rem;
+    box-shadow: inset 10rem 10rem 5rem $color-black;
+
+    @media screen and (max-width: 650px) {
+      width: 6rem;
+    }
+    @media screen and (max-width: 440px) {
+      width: 4rem;
+      margin: 0;
+      padding: 0.5rem;
+    }
+
+    &-active {
+      box-shadow: inset 10rem 10rem 5rem $color-secondary;
+    }
   }
 }
 

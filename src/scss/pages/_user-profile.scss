@@ -161,11 +161,14 @@
     border: 1rem solid $color-white;
 
     .icon {
-      width: 50%;
-      height: 50%;
+      width: 65%;
+      height: 65%;
       cursor: default;
-      filter: invert(93%) sepia(2%) saturate(1189%) hue-rotate(314deg)
-        brightness(103%) contrast(86%);
+
+      &.default {
+        filter: invert(93%) sepia(2%) saturate(1189%) hue-rotate(314deg)
+          brightness(103%) contrast(86%);
+      }
     }
   }
 

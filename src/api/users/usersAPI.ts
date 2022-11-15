@@ -12,6 +12,7 @@ export interface UserResponse {
   username: string;
   email: string;
   createdAt: string;
+  icon: string;
 }
 
 export interface RegisterData {
@@ -20,6 +21,7 @@ export interface RegisterData {
   email: string;
   firstName: string;
   lastName: string;
+  icon: string;
 }
 
 export const login = async (credentials: UserCredentials): Promise<string> => {

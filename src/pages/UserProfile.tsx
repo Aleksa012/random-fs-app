@@ -7,8 +7,14 @@ import { Post } from "../components/posts/Post";
 import { Button } from "../components/buttons/Button";
 
 import plusIcon from "../assets/icons/plus.png";
-import userIcon from "../assets/icons/user.png";
+import defaultUserIcon from "../assets/icons/user.png";
 import closeIcon from "../assets/icons/close.png";
+import smileIcon from "../assets/icons/smiling.png";
+import sadIcon from "../assets/icons/sad.png";
+import angryIcon from "../assets/icons/angry.png";
+import starIcon from "../assets/icons/star.png";
+import winkIcon from "../assets/icons/wink.png";
+
 import classNames from "classnames";
 import { useToggle } from "./../hooks/useToggle";
 import { Modal } from "./../components/modal/Modal";
@@ -17,7 +23,7 @@ import { getSelf, UserResponse } from "./../api/users/usersAPI";
 import { getAllPosts } from "./../api/posts/postsAPI";
 
 export const UserProfile = () => {
-  const [posts, setPosts] = useState<PostResponse[]>([]);
+  const [posts, setPosts] = useState<PostResponse[]>();
   const [allPosts, setAllPosts] = useState<PostResponse[]>([]);
   const [isActive, setIsActive] = useToggle();
   const [isModalOpen, setIsModalOpen] = useToggle();
@@ -29,13 +35,8 @@ export const UserProfile = () => {
       setPosts(posts.reverse());
       const user = await getSelf();
       setUser(user);
-    })();
-  }, []);
-
-  useEffect(() => {
-    (async () => {
-      const { posts } = await getAllPosts();
-      setAllPosts(posts);
+      const data = await getAllPosts();
+      setAllPosts(data.posts);
     })();
   }, []);
 
@@ -44,19 +45,46 @@ export const UserProfile = () => {
   });
 
   const totalLiked = useMemo(() => {
-    return (
-      user && allPosts.filter((post) => post.likes.includes(user.id)).length
-    );
-  }, [posts]);
+    return !user
+      ? "..."
+      : allPosts.filter((post) => post.likes.includes(user.id)).length;
+  }, [allPosts, posts]);
 
   const totalLikes = useMemo(() => {
-    return posts.reduce((acc, cur) => (acc += cur.likes.length), 0);
+    return !posts
+      ? "..."
+      : posts.reduce((acc, cur) => (acc += cur.likes.length), 0);
   }, [posts]);
 
-  const popularPosts = posts.reduce(
-    (acc, cur) => (acc += cur.popular ? 1 : 0),
-    0
-  );
+  const popularPosts = !posts
+    ? "..."
+    : posts.reduce((acc, cur) => (acc += cur.popular ? 1 : 0), 0);
+
+  const userIcon = () => {
+    if (!user) return defaultUserIcon;
+    switch (user.icon) {
+      case "smileIcon":
+        return smileIcon;
+      case "angryIcon":
+        return angryIcon;
+      case "sadIcon":
+        return sadIcon;
+      case "winkIcon":
+        return winkIcon;
+      case "starIcon":
+        return starIcon;
+      default:
+        return defaultUserIcon;
+    }
+  };
+
+  const userIconClass = classNames("icon", {
+    default: user?.icon === "/",
+  });
+
+  const profileMenuIconClass = classNames("icon", "icon--profile-menu", {
+    default: user?.icon === "/" || isActive,
+  });
 
   return (
     <Background className="background--profile">
@@ -75,11 +103,17 @@ export const UserProfile = () => {
           ) : (
             <>
               <div className="profile__picture">
-                <img src={userIcon} alt="profile picture" className="icon" />
+                <img
+                  src={userIcon()}
+                  alt="profile picture"
+                  className={userIconClass}
+                />
               </div>
               <div className="profile__username">{user.username}</div>
               <div className="profile__details">
-                <span className="profile__detail">{`Total posts: ${posts.length}`}</span>
+                <span className="profile__detail">{`Total posts: ${
+                  !posts ? "..." : posts.length
+                }`}</span>
                 <span className="profile__detail">{`Popular posts: ${popularPosts}`}</span>
                 <span className="profile__detail">{`Total liked: ${totalLiked}`}</span>
                 <span className="profile__detail">{`Total likes: ${totalLikes}`}</span>
@@ -87,9 +121,9 @@ export const UserProfile = () => {
               <div className="profile__menu">
                 <img
                   onClick={setIsActive}
-                  src={isActive ? closeIcon : userIcon}
+                  src={isActive ? closeIcon : userIcon()}
                   alt="burger"
-                  className="icon icon--profile-menu"
+                  className={profileMenuIconClass}
                 />
               </div>
             </>
@@ -104,7 +138,7 @@ export const UserProfile = () => {
             </Button>
           </h2>
           <div className="profile__posts-main">
-            {posts.length < 1 ? (
+            {!posts ? (
               <Loading />
             ) : (
               posts.map((post) => {
